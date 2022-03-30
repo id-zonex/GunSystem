@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FuncTestRenderingComponent.h"
 #include "WeaponModule.h"
 #include "ShootingComponent.generated.h"
 
@@ -14,17 +15,24 @@ class GUNSYSTEM_API UShootingComponent : public UWeaponModule
 
 public:	
 	UShootingComponent();
-
-	USceneComponent* Pivot;
-
+	
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	
 protected:
 	virtual void BeginPlay() override;
+	
+public:
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void Initialize(USceneComponent* Pivot);
 
-public:	
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+	virtual void Initialize_Implementation(USceneComponent* Pivot);
+	
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	TArray<AActor*> Attack();
 
 	TArray<AActor*> virtual Attack_Implementation();
+	
+protected:
+	UPROPERTY(BlueprintReadWrite, Category="Attack")
+	USceneComponent* AttackPivot;
 };

@@ -7,6 +7,11 @@ UShootingComponent::UShootingComponent()
 }
 
 
+void UShootingComponent::Initialize_Implementation(USceneComponent* Pivot)
+{
+	AttackPivot = Pivot;
+}
+
 void UShootingComponent::BeginPlay()
 {
 	Super::BeginPlay();

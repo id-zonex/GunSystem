@@ -11,7 +11,7 @@ void AFirearmWeapon::ImplementWeaponInfo_Implementation(UWeaponInfo* NewWeaponIn
 	
 	Ammo = DuplicateObject(NewWeaponInfo->Ammo, this);
 
-	AimingModule = DuplicateObject(NewWeaponInfo->MiddleButtonModule, this);
+	AimingModule = DuplicateObject(NewWeaponInfo->AimingModule, this);
 }
 
 void AFirearmWeapon::AttackTick_Implementation()

@@ -12,9 +12,3 @@ AWeapon* UWeaponInfo::InstantiateWeapon(AActor* Outer)
 
     return WeaponInstance;
 }
-
-void UWeaponInfo::ImplementWeaponInfo(AWeapon* Weapon)
-{
-    if (ShootingModule != nullptr)
-        Weapon->ShootingComponent = DuplicateObject(ShootingModule, nullptr);
-}

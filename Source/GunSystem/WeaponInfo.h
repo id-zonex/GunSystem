@@ -18,7 +18,6 @@ class GUNSYSTEM_API UWeaponInfo : public UPrimaryDataAsset
 	GENERATED_BODY()
 
 public:
-	// �������� ������
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Description", meta = (DisplayPriority = 1))
 	FText Name;
 
@@ -47,7 +46,7 @@ public:
 	UShootingComponent* ShootingModule;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Instanced, Category = "Gameplay|Modules", meta = (DisplayPriority = 1))
-	UWeaponModule* MiddleButtonModule;
+	UWeaponModule* AimingModule;
 	
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Instanced, Category = "Gameplay|Modules", meta = (DisplayPriority = 1))
 	UWeaponModule* SecondModule;
@@ -58,6 +57,4 @@ public:
 public:
 	UFUNCTION(BlueprintCallable)
 	AWeapon* InstantiateWeapon(AActor* Outer);
-
-	void virtual ImplementWeaponInfo(AWeapon* Weapon);
 };

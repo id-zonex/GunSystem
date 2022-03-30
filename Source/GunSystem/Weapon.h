@@ -19,26 +19,24 @@ class GUNSYSTEM_API AWeapon : public AActor
 public:	
 	AWeapon();
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Attributes)
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
 	UWeaponInfo* WeaponInfo;
 
-	UPROPERTY(BlueprintReadWrite, Category = Modules)
+	UPROPERTY(BlueprintReadOnly, Category = "Attack|Modules")
 	UShootingComponent* ShootingComponent;
+	
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attack")
+	USceneComponent* AttackPivot;
 
 public:	
 	virtual void Tick(float DeltaTime) override;
+	
+protected:
+	virtual void BeginPlay() override;
 
+public:	
 	//// Blueprint events ////
-
-	// Weapon visibility
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	void Select();
-	void Select_Implementation();
-
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	void Unselect();
-	void Unselect_Implementation();
-
+	
 	// Attack
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void StartAttack();
@@ -52,12 +50,28 @@ public:
 	void StopAttack();
 	void virtual StopAttack_Implementation();
 
+	// Second module
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void ActivateSecondModule();
+	void virtual ActivateSecondModule_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void DeactivateSecondModule();
+	void virtual DeactivateSecondModule_Implementation();
+
+	// Weapon visibility
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void Select();
+	void Select_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void Unselect();
+	void Unselect_Implementation();
+	
 	UFUNCTION(BlueprintCallable)
 	void UpdateWeaponInfo(UWeaponInfo* NewWeaponInfo);
 
 protected:
-	virtual void BeginPlay() override;
-
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void ImplementWeaponInfo(UWeaponInfo* NewWeaponInfo);
 	

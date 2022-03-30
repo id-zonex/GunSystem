@@ -4,6 +4,12 @@
 
 AWeapon::AWeapon()
 {
+    RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("WeaponRoot"));
+    
+    AttackPivot = CreateDefaultSubobject<USceneComponent>(TEXT("AttackPivot"));
+
+    AttackPivot->SetupAttachment(RootComponent);
+    
 	PrimaryActorTick.bCanEverTick = true;
 }
 
@@ -38,6 +44,15 @@ void AWeapon::StopAttack_Implementation()
     GetWorld()->GetTimerManager().ClearTimer(AttackingTimer);
 }
 
+// Second module actions
+void AWeapon::ActivateSecondModule_Implementation()
+{
+}
+
+void AWeapon::DeactivateSecondModule_Implementation()
+{
+}
+
 // Weapon visibility
 void AWeapon::Select_Implementation()
 {
@@ -49,25 +64,28 @@ void AWeapon::Unselect_Implementation()
     SetActive(false);
 }
 
-void AWeapon::ImplementWeaponInfo_Implementation(UWeaponInfo* NewWeaponInfo)
-{
-    if(NewWeaponInfo == nullptr)
-        return;
-    
-    if (NewWeaponInfo->ShootingModule != nullptr)
-        ShootingComponent = DuplicateObject(NewWeaponInfo->ShootingModule, this);
-}
-
-void AWeapon::SetActive(bool Active)
-{
-    SetActorEnableCollision(Active);
-    SetActorHiddenInGame(!Active);
-}
-
 // DA WeaponInfo Actions
 void AWeapon::UpdateWeaponInfo(UWeaponInfo* NewWeaponInfo)
 {
     WeaponInfo = NewWeaponInfo;
 
     ImplementWeaponInfo(WeaponInfo);
+}
+
+void AWeapon::ImplementWeaponInfo_Implementation(UWeaponInfo* NewWeaponInfo)
+{
+    if(NewWeaponInfo == nullptr)
+        return;
+    
+    if (NewWeaponInfo->ShootingModule != nullptr)
+    {
+        ShootingComponent = DuplicateObject(NewWeaponInfo->ShootingModule, this);
+        ShootingComponent->Initialize(AttackPivot);
+    }
+}
+
+void AWeapon::SetActive(bool Active)
+{
+    SetActorEnableCollision(Active);
+    SetActorHiddenInGame(!Active);
 }
