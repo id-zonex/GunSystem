@@ -1,0 +1,16 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "4.27Chaos",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "GunSystem",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	]
+}
